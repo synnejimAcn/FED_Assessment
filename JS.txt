@@ -1,0 +1,218 @@
+const products = [
+    {
+      id: 1,
+      name: "Luna Necklace",
+      description: "Elegant moonstone pendant with a modern design, perfect for special occasions.",
+      price: 129.99,
+      image: "./images/BVLG/1.png"
+    },
+    {
+      id: 2,
+      name: "Celeste Ring",
+      description: "A stunning gold ring adorned with sparkling diamonds, ideal for engagement or a gift.",
+      price: 199.99,
+      image: "./images/BVLG/2.png"
+    },
+    {
+      id: 3,
+      name: "Stella Earrings",
+      description: "Delicate pearl drop earrings, an elegant addition to any evening outfit.",
+      price: 89.99,
+      image: "./images/BVLG/3.png"
+    },
+    {
+      id: 4,
+      name: "Celeste Ring",
+      description: "A stunning gold ring adorned with sparkling diamonds, ideal for engagement or a gift.",
+      price: 199.99,
+      image: "./images/BVLG/4.png"
+    },
+    {
+      id: 5,
+      name: "Celeste Ring",
+      description: "A stunning gold ring adorned with sparkling diamonds, ideal for engagement or a gift.",
+      price: 199.99,
+      image: "./images/BVLG/5.png"
+    },
+    {
+      id: 6,
+      name: "Celeste Ring",
+      description: "A stunning gold ring adorned with sparkling diamonds, ideal for engagement or a gift.",
+      price: 199.99,
+      image: "./images/BVLG/6.png"
+    },
+    {
+      id: 7,
+      name: "Celeste Ring",
+      description: "A stunning gold ring adorned with sparkling diamonds, ideal for engagement or a gift.",
+      price: 199.99,
+      image: "./images/BVLG/7.png"
+    },
+    {
+      id: 8,
+      name: "Celeste Ring",
+      description: "A stunning gold ring adorned with sparkling diamonds, ideal for engagement or a gift.",
+      price: 199.99,
+      image: "./images/BVLG/8.png"
+    },
+    {
+      id: 9,
+      name: "Celeste Ring",
+      description: "A stunning gold ring adorned with sparkling diamonds, ideal for engagement or a gift.",
+      price: 199.99,
+      image: "./images/BVLG/9.png"
+    },
+    {
+      id: 10,
+      name: "Celeste Ring",
+      description: "A stunning gold ring adorned with sparkling diamonds, ideal for engagement or a gift.",
+      price: 199.99,
+      image: "./images/BVLG/10.png"
+    },
+    {
+      id: 11,
+      name: "Celeste Ring",
+      description: "A stunning gold ring adorned with sparkling diamonds, ideal for engagement or a gift.",
+      price: 199.99,
+      image: "./images/BVLG/11.png"
+    }
+    
+  ];
+
+
+
+  const productContainer = document.getElementById("product-container");
+
+
+
+
+products.forEach(product => {
+  const card = document.createElement("div");
+  card.className = "product-card";
+  card.innerHTML = `
+    <img src="${product.image}" alt="${product.name}" class="product-image" />
+    <h3>${product.name}</h3>
+    <p>${product.description}</p>
+    <strong>$${product.price.toFixed(2)}</strong>
+    <br>
+    <button onclick="addToCart(${product.id})">Add to Cart</button>
+  `;
+  productContainer.appendChild(card);
+});
+
+
+
+
+
+
+
+
+
+const leftArrow = document.getElementById('prev');
+const rightArrow = document.getElementById('next');
+
+let bannerIndex = 0;
+
+const banners = document.querySelectorAll(".banner-slide");
+
+function showBanner() {
+  banners.forEach((img) => img.classList.remove("active"));
+  banners[bannerIndex].classList.add("active");
+}
+
+
+leftArrow.addEventListener('click', () => {
+  bannerIndex = (bannerIndex - 1 + banners.length) % banners.length;
+  showBanner(); 
+});
+
+
+rightArrow.addEventListener('click', () => {
+  bannerIndex = (bannerIndex + 1) % banners.length;
+  showBanner(); 
+});
+
+
+showBanner();
+
+
+
+
+
+
+
+
+
+
+
+let cart = [];
+
+
+function addToCart(productId) {
+  const product = products.find(product => product.id === productId);
+  if (product) {
+    cart.push(product);
+    
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function openCart() {
+  const modal = document.getElementById('cart-modal');
+  const cartItemsList = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  const checkoutBtn = document.getElementById('checkout-btn'); 
+
+  
+  cartItemsList.innerHTML = "";
+
+  
+  let total = 0;
+  cart.forEach(item => {
+    const listItem = document.createElement('li');
+    listItem.innerText = `${item.name} - $${item.price.toFixed(2)}`;
+    cartItemsList.appendChild(listItem);
+    total += item.price;
+  });
+
+  
+  cartTotal.innerText = total.toFixed(2);
+
+  
+  modal.style.display = "block";
+
+  
+}
+
+
+const checkoutBtn = document.getElementById('checkout-btn');
+checkoutBtn.addEventListener('click', () => {
+  closeCart();
+  alert("Proceeding to checkout...");
+});
+
+
+
+function closeCart() {
+  const modal = document.getElementById('cart-modal');
+  modal.style.display = 'none';  
+}
+
+
+
+
+
+
+
+
